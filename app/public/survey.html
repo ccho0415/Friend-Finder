@@ -19,7 +19,7 @@
 		<hr>
 		<h3><strong>Question 1</strong></h3>
 		<h4>You prefer hot weather over cold weather</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q1">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -30,7 +30,7 @@
 		<br>
 		<h3><strong>Question</strong></h3>
 		<h4>You must have a routine in your day</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q2">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -41,7 +41,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>You love having an animal companion</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q3">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -52,7 +52,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>You love a good pun</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q4">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -63,7 +63,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>You think that as long as your choice leads to the benefit of most people it is the right choice. Even if it harms a few.</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q5">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -74,7 +74,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>Your emotions lead your decisions the most.</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q6">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -85,7 +85,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>You think that actions speak louder than words.</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q7">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -96,7 +96,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>You can eat your favorite dish everyday.</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q8">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -107,7 +107,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>You need to do something new everyday.</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q9">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -118,7 +118,7 @@
 		<br>	
 		<h3><strong>Question</strong></h3>
 		<h4>If you have a goal, you do not stop at anything to achieve that goal.</h4>
-		<select data-placeholder = "" class="choice" id = "q">
+		<select data-placeholder = "" class="choice" id = "q10">
 			<option value = ""></option>
 			<option value = "1">1 - Strongly Disagree</option>
 			<option value = "2">2</option>
@@ -127,8 +127,54 @@
 			<option value ="5">5- Strongly Agree</option>
 		</select>
 		<br>	
-		<button class = "btn btn-primary">Submit</button>			
+		<button class = "btn btn-primary" id="submit">Submit</button>			
 	</div>
-
 </body>
+	  <script type="text/javascript">
+    $("#submit").on("click", function(){
+
+    	// Is the form filled?
+    	function fillForm() {
+		  var isFill = true;
+		  $('.form-control').each(function() {
+		    if ( $(this).val() === '' )
+		        isFill = false;
+		  });
+
+		  $('.choice').each(function() {
+
+		  	if( $(this).val() === "")
+		  		isFill = false
+		  })
+		  return isFill;
+		}
+		// If all required fields are filled
+		if (fillForm() == true)
+		{
+	    	var userData = {
+	    		name: $("#name").val(),
+	    		photo: $("#photo").val(),
+	    		scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
+	    	}
+
+	    	var currentURL = window.location.origin;
+ 
+	    	$.post(currentURL + "/api/friends", userData, function(data){
+
+	    		if(data){
+	    			console.log("posted");
+	    		}else{
+	    			console.log("error");
+	    		}
+
+	    	});
+		}
+		else
+		{
+			alert("Please fill out all fields before submitting!");
+		}
+    	
+    	return false;
+    });
+</script>
 </html>
