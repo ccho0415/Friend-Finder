@@ -25,24 +25,17 @@ module.exports = function(app){
 			for(var i = 0; i <diffs.length; i++){
 				total =  parseInt(diffs[i])+parseInt(total);
 			}
-			console.log(total);
 			totaldif.push(total);
 			diffs = [];
 		});
-		console.log(totaldif);
+		for (var i =0; i<totaldif.length; i++){
+			if 	(totaldif[i] == Math.min(parseInt(totaldif))){
+				console.log(i);
+			}
+
+		}
+
 		res.json(true)
 
 	});
 };
-
-		// 	console.log(diffs);
-		// 	for(var i = 0; i <diffs.length; i++){
-		// 		var add =  parseInt(diffs[i])+total;
-		// 	}
-		// 	totaldif.push(add);
-		// 	var num = 0;
-		// 	var total = 0;
-		// 	var diffs= [];
-		// });
-		// console.log(totaldif);
-		// res.json(true)
