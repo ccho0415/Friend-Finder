@@ -1,10 +1,13 @@
 var friendData = require("../data/friend.js");
+function display(name, photo){
+	name: name;
+	photo: photo;
+}
 module.exports = function(app){
 	app.get("/api/friends", function(req,res){
 		res.json(friendData);
 	});
 	app.post("/api/friends", function(req,res){
-		console.log(req.body);
 		// friendData.push({
 		// 	name: req.body.name,
 		// 	photo: req.body.photo,
@@ -14,7 +17,7 @@ module.exports = function(app){
 		var num = 0;
 		var totaldif = [];
 		var total = 0;
-		var match;
+		var data;
 		friendData.forEach(function(element){
 			var user1 = element.scores;
 			var user2 = req.body.scores;
@@ -27,15 +30,23 @@ module.exports = function(app){
 				total =  parseInt(diffs[i])+parseInt(total);
 			}
 			totaldif.push(total);
+			total = 0;
 			diffs = [];
 		});
-		for (var i =0; i<totaldif.length; i++){
-			if 	(totaldif[i] == Math.min(parseInt(totaldif))){
-				match = friendData[i]
-			}
-
+		Array.min= function(array){
+			return Math.min.apply(Math, array);
 		}
-		console.log(match);
+		var match = Array.min(totaldif)
+		for (var i =0; i<totaldif.length; i++){
+			if 	(totaldif[i] == match) {
+				data = friendData[i]
+				res.send(data);
+			}else{
+				console.log("not a match")
+			}
+		}
+		console.log(totaldif);
+		;
 		res.json(true)
 
 	});
