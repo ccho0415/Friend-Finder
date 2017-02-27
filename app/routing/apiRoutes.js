@@ -14,6 +14,7 @@ module.exports = function(app){
 		var num = 0;
 		var totaldif = [];
 		var total = 0;
+		var match;
 		friendData.forEach(function(element){
 			var user1 = element.scores;
 			var user2 = req.body.scores;
@@ -30,11 +31,11 @@ module.exports = function(app){
 		});
 		for (var i =0; i<totaldif.length; i++){
 			if 	(totaldif[i] == Math.min(parseInt(totaldif))){
-				console.log(i);
+				match = friendData[i]
 			}
 
 		}
-
+		console.log(match);
 		res.json(true)
 
 	});
